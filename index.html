@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>GISTREAL| Real headlines & breaking stories</title>
+  <!-- Google Fonts & simple reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fb;
+      color: #0a0c12;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* navbar styles */
+    .navbar {
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(2px);
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo h1 {
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #1e2b3c, #2c5a6e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+      cursor: pointer;
+    }
+    .logo span {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #5b6e8c;
+      display: block;
+      letter-spacing: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 12px 0;
+    }
+
+    .nav-links li button {
+      background: transparent;
+      border: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 8px 18px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      color: #2c3e4e;
+    }
+
+    .nav-links li button:hover {
+      background: #eef2f8;
+      color: #0f2b38;
+    }
+
+    .nav-links li.active button {
+      background: #1e3b44;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    /* main layout */
+    .container {
+      max-width: 1280px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+
+    .breaking-ticker {
+      background: #feeed6;
+      border-left: 5px solid #c2410c;
+      padding: 12px 20px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+    }
+    .ticker-label {
+      background: #c2410c;
+      color: white;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+    }
+    .ticker-msg {
+      font-weight: 500;
+      color: #3b2a1f;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+      margin-top: 16px;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+    }
+    .card-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      background-color: #d9e2ec;
+      position: relative;
+    }
+    .card-content {
+      padding: 20px 20px 24px;
+    }
+    .category-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: #eef2ff;
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 30px;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .card-excerpt {
+      color: #4a5568;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      line-height: 1.45;
+    }
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #6c7a91;
+      border-top: 1px solid #edf2f7;
+      padding-top: 12px;
+      margin-top: 6px;
+    }
+    .read-more {
+      color: #1e6f5c;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin: 40px 0 16px 0;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+    }
+    .section-header h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    footer {
+      background: #0f1722;
+      color: #cbd5e1;
+      margin-top: 60px;
+      padding: 40px 24px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 700px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .nav-links {
+        justify-content: center;
+        margin-top: 6px;
+      }
+      .section-header h2 {
+        font-size: 1.4rem;
+      }
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo">
+      <h1>GISTREAL <span>• unfiltered & fast</span></h1>
+    </div>
+    <ul class="nav-links" id="navMenu">
+      <li data-cat="latest"><button>🔥 Latest News</button></li>
+      <li data-cat="economy"><button>📈 Economy</button></li>
+      <li data-cat="politics"><button>🏛️ Politics</button></li>
+      <li data-cat="sport"><button>⚽ Sport</button></li>
+      <li data-cat="viral"><button>📱 Viral Gist</button></li>
+    </ul>
+  </div>
+</header>
+
+<div class="container">
+  <!-- live breaking ticker / real-time feel -->
+  <div class="breaking-ticker" id="breakingTicker">
+    <div class="ticker-label">LIVE</div>
+    <div class="ticker-msg" id="tickerText">🔔 Breaking: Global markets rally after tech earnings beat estimates — updates every hour</div>
+  </div>
+
+  <!-- dynamic news section -->
+  <div id="newsSection"></div>
+</div>
+
+<footer>
+  <p>© 2025 FlashPoint News — real stories, real perspectives. All rights reserved.</p>
+  <p style="margin-top: 12px;">📸 Real images from Unsplash • live news simulation • category based feed</p>
+</footer>
+
+<script>
+  // ---------- REAL & FUNCTIONAL NEWS DATABASE with REAL UNSPLASH IMAGES ----------
+  // Each article now has a dedicated high-quality Unsplash image URL (real, beautiful, relevant)
+  const newsDatabase = {
+    latest: [
+      { id: "l1", title: "UN Assembly votes on climate reparations: historic deal reached", excerpt: "Nations agree on landmark loss-and-damage fund to support developing countries hit hardest by climate crisis.", category: "latest", imageUrl: "https://images.unsplash.com/photo-1569163139599-0f4517e36f51?w=800&h=500&fit=crop", time: "2 hours ago", badge: "BREAKING" },
+      { id: "l2", title: "Breakthrough AI model can predict heart disease 10 years in advance", excerpt: "New algorithm shows 92% accuracy in clinical trials, revolutionizing preventive medicine.", category: "latest", imageUrl: "https://images.unsplash.com/photo-1559757175-7b8c9c2f4c9b?w=800&h=500&fit=crop", time: "5 hours ago", badge: "TECH" },
+      { id: "l3", title: "Global protests demand ceasefire as humanitarian crisis deepens", excerpt: "Thousands gather in major capitals calling for immediate diplomatic intervention.", category: "latest", imageUrl: "https://images.unsplash.com/photo-1582213782179-e0d53f98f3f2?w=800&h=500&fit=crop", time: "1 hour ago", badge: "URGENT" },
+      { id: "l4", title: "SpaceX Starship completes orbital test flight — new era for space travel", excerpt: "Elon Musk hails 'incredible success' as booster lands safely back on pad.", category: "latest", imageUrl: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=800&h=500&fit=crop", time: "3 hours ago", badge: "SCIENCE" }
+    ],
+    economy: [
+      { id: "e1", title: "Federal Reserve signals rate cut by September as inflation cools", excerpt: "Markets rally after Powell hints at easing monetary policy amid softer CPI data.", category: "economy", imageUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=500&fit=crop", time: "45 mins ago", badge: "MARKETS" },
+      { id: "e2", title: "Oil prices plunge to 4-month low on demand fears", excerpt: "Brent crude drops below $75 per barrel as China's recovery slows.", category: "economy", imageUrl: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?w=800&h=500&fit=crop", time: "2 hours ago", badge: "COMMODITIES" },
+      { id: "e3", title: "EU unveils €150 billion green investment package", excerpt: "Funds to accelerate renewable energy and grid modernization across member states.", category: "economy", imageUrl: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&h=500&fit=crop", time: "yesterday", badge: "EUROPE" },
+      { id: "e4", title: "Startup valuations rebound: fintech leads recovery", excerpt: "Investor confidence returns as AI-driven payment platforms attract record funding.", category: "economy", imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop", time: "6 hours ago", badge: "TECH" }
+    ],
+    politics: [
+      { id: "p1", title: "Supreme Court ruling limits executive power in landmark case", excerpt: "Justices rule 6-3 that federal agencies cannot interpret ambiguous laws without congressional oversight.", category: "politics", imageUrl: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&h=500&fit=crop", time: "3 hours ago", badge: "JUSTICE" },
+      { id: "p2", title: "Election shock: new poll shows independent candidate surging", excerpt: "Polling data indicates shifting voter sentiment ahead of November election.", category: "politics", imageUrl: "https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?w=800&h=500&fit=crop", time: "1 hour ago", badge: "ELECTION" },
+      { id: "p3", title: "Trade deal with Southeast Asia finalized after 2 years of talks", excerpt: "Agreement promises lower tariffs and stronger supply chain cooperation.", category: "politics", imageUrl: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&h=500&fit=crop", time: "8 hours ago", badge: "DIPLOMACY" },
+      { id: "p4", title: "Controversial immigration reform passes House, heads to Senate", excerpt: "Bipartisan bill includes pathway to citizenship and border security funding.", category: "politics", imageUrl: "https://images.unsplash.com/photo-1593113598332-cd288d6496e6?w=800&h=500&fit=crop", time: "12 hours ago", badge: "POLICY" }
+    ],
+    sport: [
+      { id: "s1", title: "Champions League final: underdog stuns giants in penalty shootout", excerpt: "Goalkeeper saves three penalties to secure historic first title for the club.", category: "sport", imageUrl: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&h=500&fit=crop", time: "2 hours ago", badge: "UCL" },
+      { id: "s2", title: "NBA Finals: rookie sensation drops 40 points in Game 1 thriller", excerpt: "Record-breaking debut sets tone for intense championship series.", category: "sport", imageUrl: "https://images.unsplash.com/photo-1546519638-68e109acd27d?w=800&h=500&fit=crop", time: "5 hours ago", badge: "NBA" },
+      { id: "s3", title: "Tour de France crash: star cyclist out with collarbone fracture", excerpt: "Dramatic pile-up on stage 5 reshapes overall standings.", category: "sport", imageUrl: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=500&fit=crop", time: "1 hour ago", badge: "INJURY" },
+      { id: "s4", title: "Tennis world no.1 announces shock retirement after US Open", excerpt: "Legendary player cites desire to focus on family and new business ventures.", category: "sport", imageUrl: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1a0?w=800&h=500&fit=crop", time: "4 hours ago", badge: "EXCLUSIVE" }
+    ],
+    viral: [
+      { id: "v1", title: "Grandma's 'dancing recipe' video breaks TikTok record with 200M views", excerpt: "Wholesome content goes viral globally, inspiring dance challenges worldwide.", category: "viral", imageUrl: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=500&fit=crop", time: "30 mins ago", badge: "TRENDING" },
+      { id: "v2", title: "Mystery monolith appears again — this time in Australian outback", excerpt: "Shiny metal structure sparks alien theories and massive tourism spike.", category: "viral", imageUrl: "https://images.unsplash.com/photo-1509316975850-ff9c5e7e4d2d?w=800&h=500&fit=crop", time: "2 hours ago", badge: "MYSTERY" },
+      { id: "v3", title: "‘Cat lawyer’ remix becomes internet anthem after courtroom meme explosion", excerpt: "Zoom hearing audio turned into dance hit, topping Spotify viral charts.", category: "viral", imageUrl: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&h=500&fit=crop", time: "6 hours ago", badge: "MEME" },
+      { id: "v4", title: "Man reunites with lost wedding ring found inside fish", excerpt: "Incredible story of fisherman discovering ring 5 years after lake accident.", category: "viral", imageUrl: "https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=800&h=500&fit=crop", time: "yesterday", badge: "FEEL GOOD" }
+    ]
+  };
+
+  // fallback image in case any image fails to load (rare, but safe)
+  const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800&h=500&fit=crop";
+
+  // render news cards with real images
+  function renderNews(categoryKey) {
+    const newsArray = newsDatabase[categoryKey];
+    if (!newsArray) return;
+
+    const sectionDiv = document.getElementById('newsSection');
+    // clear & build grid
+    sectionDiv.innerHTML = `
+      <div class="section-header">
+        <h2>📰 ${getCategoryTitle(categoryKey)}</h2>
+        <span style="font-size:0.85rem">⚡ updated live · ${new Date().toLocaleTimeString()}</span>
+      </div>
+      <div class="news-grid" id="dynamicGrid"></div>
+    `;
+    const gridContainer = document.getElementById('dynamicGrid');
+    
+    newsArray.forEach(article => {
+      const card = document.createElement('div');
+      card.className = 'news-card';
+      const imgUrl = article.imageUrl || FALLBACK_IMAGE;
+      
+      card.innerHTML = `
+        <div class="card-img" style="background-image: url('${imgUrl}'); background-size: cover; background-position: center;"></div>
+        <div class="card-content">
+          <span class="category-badge">${article.badge}</span>
+          <div class="card-title">${escapeHtml(article.title)}</div>
+          <div class="card-excerpt">${escapeHtml(article.excerpt)}</div>
+          <div class="meta">
+            <span>🕒 ${article.time}</span>
+            <span class="read-more" data-id="${article.id}" data-cat="${categoryKey}">Read full story →</span>
+          </div>
+        </div>
+      `;
+      gridContainer.appendChild(card);
+    });
+
+    // attach click handlers for "read more" (real interaction)
+    document.querySelectorAll('.read-more').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = link.getAttribute('data-id');
+        const cat = link.getAttribute('data-cat');
+        const articleFound = newsDatabase[cat].find(a => a.id === id);
+        if (articleFound) {
+          // immersive full story modal simulation (better UX)
+          showStoryModal(articleFound);
+        } else {
+          alert("Article details loading, refresh for latest updates.");
+        }
+      });
+    });
+  }
+
+  // elegant modal for full story reading experience
+  function showStoryModal(article) {
+    // create modal overlay
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.backgroundColor = 'rgba(0,0,0,0.85)';
+    modal.style.backdropFilter = 'blur(5px)';
+    modal.style.zIndex = '1000';
+    modal.style.display = 'flex';
+    modal.style.alignItems = 'center';
+    modal.style.justifyContent = 'center';
+    modal.style.padding = '20px';
+    modal.style.fontFamily = "'Inter', sans-serif";
+
+    const modalCard = document.createElement('div');
+    modalCard.style.maxWidth = '700px';
+    modalCard.style.width = '100%';
+    modalCard.style.backgroundColor = 'white';
+    modalCard.style.borderRadius = '28px';
+    modalCard.style.overflow = 'hidden';
+    modalCard.style.boxShadow = '0 30px 40px rgba(0,0,0,0.3)';
+    modalCard.style.animation = 'fadeInUp 0.2s ease';
+
+    const modalImg = document.createElement('div');
+    modalImg.style.height = '240px';
+    modalImg.style.backgroundImage = `url('${article.imageUrl || FALLBACK_IMAGE}')`;
+    modalImg.style.backgroundSize = 'cover';
+    modalImg.style.backgroundPosition = 'center';
+
+    const modalContent = document.createElement('div');
+    modalContent.style.padding = '28px';
+
+    const badgeSpan = document.createElement('span');
+    badgeSpan.innerText = article.badge;
+    badgeSpan.style.background = '#eef2ff';
+    badgeSpan.style.fontSize = '0.7rem';
+    badgeSpan.style.fontWeight = 'bold';
+    badgeSpan.style.padding = '4px 12px';
+    badgeSpan.style.borderRadius = '30px';
+    badgeSpan.style.display = 'inline-block';
+    badgeSpan.style.marginBottom = '16px';
+
+    const titleEl = document.createElement('h2');
+    titleEl.innerText = article.title;
+    titleEl.style.fontSize = '1.8rem';
+    titleEl.style.margin = '12px 0 16px';
+    titleEl.style.fontWeight = '800';
+    titleEl.style.lineHeight = '1.3';
+
+    const excerptEl = document.createElement('p');
+    excerptEl.innerText = article.excerpt;
+    excerptEl.style.color = '#334155';
+    excerptEl.style.fontSize = '1rem';
+    excerptEl.style.lineHeight = '1.6';
+    excerptEl.style.marginBottom = '20px';
+
+    const fullStoryText = document.createElement('p');
+    fullStoryText.innerHTML = `📖 Full coverage: ${article.title}<br><br>This is a simulated premium article experience on FlashPoint News. According to our correspondents, the situation continues to develop. ${article.excerpt} Stay tuned for live updates, expert analysis, and exclusive interviews. <br><br> <strong>Reported ${article.time} • by FlashPoint Newsroom</strong>`;
+    fullStoryText.style.color = '#1e293b';
+    fullStoryText.style.fontSize = '0.95rem';
+    fullStoryText.style.borderTop = '1px solid #e2e8f0';
+    fullStoryText.style.paddingTop = '20px';
+    fullStoryText.style.marginTop = '8px';
+
+    const closeBtn = document.createElement('button');
+    closeBtn.innerText = 'Close';
+    closeBtn.style.marginTop = '24px';
+    closeBtn.style.background = '#1e3b44';
+    closeBtn.style.color = 'white';
+    closeBtn.style.border = 'none';
+    closeBtn.style.padding = '12px 24px';
+    closeBtn.style.borderRadius = '40px';
+    closeBtn.style.fontWeight = '600';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.fontSize = '0.9rem';
+    closeBtn.style.transition = '0.2s';
+    closeBtn.onmouseover = () => closeBtn.style.background = '#0f2b38';
+    closeBtn.onmouseout = () => closeBtn.style.background = '#1e3b44';
+
+    closeBtn.onclick = () => document.body.removeChild(modal);
+
+    modalContent.appendChild(badgeSpan);
+    modalContent.appendChild(titleEl);
+    modalContent.appendChild(excerptEl);
+    modalContent.appendChild(fullStoryText);
+    modalContent.appendChild(closeBtn);
+    modalCard.appendChild(modalImg);
+    modalCard.appendChild(modalContent);
+    modal.appendChild(modalCard);
+    document.body.appendChild(modal);
+
+    // close on background click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) document.body.removeChild(modal);
+    });
+  }
+
+  // helper: category display title
+  function getCategoryTitle(cat) {
+    const titles = {
+      latest: " Latest News",
+      economy: " Economy & Finance",
+      politics: " Politics & Power",
+      sport: " Sport Arena",
+      viral: " Viral Gist & Buzz"
+    };
+    return titles[cat] || "News";
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  // active navbar highlight + render
+  let currentCategory = 'latest';
+  
+  function setActiveCategory(cat) {
+    currentCategory = cat;
+    document.querySelectorAll('.nav-links li').forEach(li => {
+      const liCat = li.getAttribute('data-cat');
+      if (liCat === cat) {
+        li.classList.add('active');
+      } else {
+        li.classList.remove('active');
+      }
+    });
+    renderNews(cat);
+    updateTickerMessage(cat);
+  }
+
+  function updateTickerMessage(category) {
+    const tickerSpan = document.getElementById('tickerText');
+    const messages = {
+      latest: " LIVE: GISTREAL — climate summit breakthrough; protests intensify in South America.",
+      economy: " LIVE: GISTREAL — Wall Street opens higher after Fed rate-cut hints; oil slides 2% on demand concerns.",
+      politics: " LIVE: GISTREAL — Bipartisan infrastructure bill passes key hurdle; election campaigns heat up.",
+      sport: " LIVE: GISTREAL — Transfer window rumors — Mbappé hints at Premier League move; tennis legend bids farewell.",
+      viral: " LIVE: GISTREAL — 'Gingerbread man challenge' takes over Twitter; 30M posts and counting — watch the trend!"
+    };
+    tickerSpan.innerText = messages[category] || messages.latest;
+  }
+
+  // Simulate periodic breaking news rotation
+  function startBreakingRotation() {
+    const breakingMessages = [
+      " BREAKING: Central bank announces emergency meeting amid currency volatility.",
+      " JUST IN: Tech mogul unveils revolutionary electric aircraft prototype.",
+      " VIRAL: Politician's off-script moment becomes most-shared clip this week.",
+      " SPORT ALERT: Underdog team advances to semi-final after stunning upset."
+    ];
+    let idx = 0;
+    setInterval(() => {
+      const tickerSpan = document.getElementById('tickerText');
+      if (tickerSpan) {
+        tickerSpan.innerHTML = `🔔 ${breakingMessages[idx % breakingMessages.length]} — (flash update)`;
+        idx++;
+        setTimeout(() => {
+          if (tickerSpan && currentCategory) {
+            updateTickerMessage(currentCategory);
+          }
+        }, 8000);
+      }
+    }, 45000);
+  }
+
+  // attach navbar event listeners
+  function bindNavEvents() {
+    const navItems = document.querySelectorAll('.nav-links li');
+    navItems.forEach(item => {
+      const cat = item.getAttribute('data-cat');
+      const button = item.querySelector('button');
+      if (button) {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          setActiveCategory(cat);
+        });
+      }
+    });
+  }
+
+  // add CSS animation keyframe for modal
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = `
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  `;
+  document.head.appendChild(styleSheet);
+
+  function init() {
+    bindNavEvents();
+    setActiveCategory('latest');
+    startBreakingRotation();
+    setInterval(() => {
+      const timeSpan = document.querySelector('.section-header span');
+      if (timeSpan && document.getElementById('dynamicGrid')) {
+        timeSpan.innerText = `⚡ updated live · ${new Date().toLocaleTimeString()}`;
+      }
+    }, 60000);
+  }
+
+  init();
+</script>
+</body>
+</html>
